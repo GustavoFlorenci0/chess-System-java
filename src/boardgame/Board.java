@@ -31,10 +31,16 @@ public class Board {
 	}
 	
 	public Piece piece( Position position) {
+		if (!positionExists(position)) {
+			throw new BoardException("Posição nao tem o tabuleiro");
+		}
 		return pieces[position.getRow()][position.getColumn()];
 	}
 	
 	public void placePiece(Piece piece, Position position ) {
+		if (thereIsAPiece(position)) {
+			throw new BoardException("Já tem uma Peça nesta posição" + position);
+		}
 		pieces[position.getRow()][position.getColumn()] = piece;
 		piece.position = position;
 	}
@@ -48,6 +54,9 @@ public class Board {
 	}
 	
 	public boolean thereIsAPiece(Position position) {
+		if (!positionExists(position)) {
+			throw new BoardException("Posição nao tem o tabuleiro");
+		}
 		return piece(position) != null;
 	}
 	
